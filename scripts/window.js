@@ -230,7 +230,7 @@ function modelIndex(idnum) {
 //template-concept: find "{{text}}" replace with note['text']
 function makeDomRow(templateDom, note, context, alternateTextSource) {
   var dom = templateDom.clone();
-  var cell = dom.find('td').first();
+  var cell = $('.task', dom).first();
   var idnum = rowid++;
   var tr_id = 'row_' + idnum;
   var td_id = 'cell_' + idnum;

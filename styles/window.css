@@ -56,11 +56,11 @@ dd {
   -webkit-user-select: text;
 }
 
-dd.taskactive {
+.taskactive {
   background-color: #FFA655;
 }
 
-dd.taskpending {
+.taskpending {
   background-color: #55A6FF;
 }
 
