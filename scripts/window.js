@@ -113,20 +113,20 @@ var SNAPMENU_COMMON = {
 var SNAPMENU_CMDS = [
   $.extend({
             id: 'undoSnapshot',
-            title: 'Delete and Restore Pending',
+            title: 'Delete and Restore Pending'
            }, SNAPMENU_COMMON),
   $.extend({
             id: 'deleteSnapshot',
-            title: 'Delete and Purge Pending',
+            title: 'Delete and Purge Pending'
            }, SNAPMENU_COMMON),
   $.extend({
             id: 'sendSnapshot',
-            title: 'Send Snapshot to Snippets',
+            title: 'Send Snapshot to Snippets'
            }, SNAPMENU_COMMON),
   $.extend({
             id: 'alterSnapshot',
-            title: 'Alter Snapshot Date',
-           }, SNAPMENU_COMMON),
+            title: 'Alter Snapshot Date'
+           }, SNAPMENU_COMMON)
 ];
 
 function snapshotMenu(date) {
