@@ -133,3 +133,11 @@ RenderingContext.prototype.closePath = function() {};
 RenderingContext.prototype.fill = function() {};
 /** */
 RenderingContext.prototype.stroke = function() {};
+
+var $ = {
+  extend: function(x, y) {}
+};
+
+var Clipboard = {
+  getData: function() {}
+};

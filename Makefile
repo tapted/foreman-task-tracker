@@ -1,5 +1,5 @@
 SRCDIR := src
-SRCS := main.js
+SRCS := foreman.js
 
 APPDIR := app
 PROJECT := $(shell basename `pwd`)
@@ -12,7 +12,7 @@ APP_DEPS := $(STATIC_DEPS) $(GENERATED_DEPS)
 LINT := /usr/local/bin/gjslint
 CLOSURE := java -jar compiler.jar
 CLOSURE_ARGS := --warning_level VERBOSE \
-  --compilation_level ADVANCED_OPTIMIZATIONS \
+  --compilation_level WHITESPACE_ONLY \
   --language_in ECMASCRIPT5_STRICT \
   --externs build/externs.js \
   --formatting=pretty_print \

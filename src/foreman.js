@@ -9,7 +9,7 @@ var foreman = {
   snapLookup: []
 };
 
-var model = {}
+var model = {};
 var activeTabAnchor;
 var activeTabHref;
 var rowid = 1;
@@ -23,10 +23,10 @@ var keysFromStorage = {};
 var B = Object.freeze({
   SETTINGS_WIDTH: 600,
   SETTINGS_HEIGHT: 450,
-  ARCHIVE:'.archive-button',
-  UNARCHIVE:'.unarchive-button',
-  RESUME:'.resume-button',
-  DELETE:'.delete-button',
+  ARCHIVE: '.archive-button',
+  UNARCHIVE: '.unarchive-button',
+  RESUME: '.resume-button',
+  DELETE: '.delete-button',
   STORESEP: '_',
   STORE_META: 'meta',
   STORE_REGEX: 'regex',
@@ -198,7 +198,7 @@ function installMenu(jqdom) {
       if (event.keyCode == 27)
         listdom.fadeOut(FADE_TIME);
     })
-    .mousedown(function(){listdom.fadeOut(FADE_TIME);});
+    .mousedown(function() {listdom.fadeOut(FADE_TIME);});
   return jqdom.before(divdom);
 }
 
@@ -292,8 +292,8 @@ function saveModel(filter, store) {
     var ob = {};
     ob[filter.note.storageKey] = filter.note;
     store.set(ob, function() {
-        document.getElementById('status').innerHTML
-              = 'sync ' + filter.note.storageKey + "@" + new Date();
+        document.getElementById('status').innerHTML =
+            'sync ' + filter.note.storageKey + '@' + new Date();
     });
     return;
   }
@@ -317,8 +317,8 @@ function saveModel(filter, store) {
   if (toRemove.length > 0)
     store.remove(Object.keys(untouchedNotes));
   store.set(snapshot, function() {
-    document.getElementById('status').innerHTML
-        = 'full sync at ' + new Date();
+    document.getElementById('status').innerHTML =
+        'full sync at ' + new Date();
   });
 }
 
@@ -384,7 +384,7 @@ function addTriggers(tabDOM) {
     $('.entry', tabDOM).text(Clipboard.getData());
     addFromTextarea(tabDOM);
   });
-  $('.entry', tabDOM).keydown(function (e) {
+  $('.entry', tabDOM).keydown(function(e) {
     if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey) {
       addFromTextarea(tabDOM);
       return false;
@@ -411,7 +411,8 @@ function appendTab(key, context, clickFunc) {
 }
 
 function snapshotTitle(key) {
-  return 'Snapshot on ' + key.slice(1,5) + B.DATESEP + key.slice(5,7) + B.DATESEP + key.slice(7,9);
+  return 'Snapshot on ' + key.slice(1, 5) + B.DATESEP + key.slice(5, 7) +
+      B.DATESEP + key.slice(7, 9);
 }
 
 function formatExtract(extract) {
@@ -562,7 +563,7 @@ function modelReset(newmodel, src) {
   $('.tab_content').detach();
   $('.tabtab').detach();
 
-  appendTab('snapshots', {name: "Snapshots"});
+  appendTab('snapshots', {name: 'Snapshots'});
   var snapDOM = $('#template-divSnapshots').clone()
     .attr('id', 'tabsnapshots')
     .attr('class', 'tab_content')
@@ -592,7 +593,7 @@ function modelReset(newmodel, src) {
 
   $.each(model['context'], appendContext);
   var extractDates = [];
-  for (key in extracts) {
+  for (var key in extracts) {
     extractDates.push(key);
   }
   extractDates.sort(function(lhs, rhs) {
@@ -610,7 +611,9 @@ function modelReset(newmodel, src) {
     var menuid = 'smenu_' + idx;
     $('<dl>')
       .append($('<dt>')
-        .append(installMenu($('<button class="T-I menu-button" title="Tasks" id="b'+menuid+'">')))
+          .append(installMenu($(
+              '<button class="T-I menu-button" title="Tasks" id="b' +
+              menuid + '">')))
 /*
         .append($('<button class="menu-button T-I" title="Tasks">'))
         .append($('<a href="snapmenu.dummy" class="menu-anchor">'))
@@ -632,9 +635,9 @@ function modelReset(newmodel, src) {
 */
         .append(snapshotTitle(date))
         .append(' &middot; ')
-        .append($('<a href="snapmenu.dummy" id="'+menuid+'">')
-                .append('menu')
-                .click(function(){return false;})
+        .append($('<a href="snapmenu.dummy" id="' + menuid + '">')
+        .append('menu')
+        .click(function() {return false;})
 /*
                 .on('mousedown', function(e) {
                   console.log('button = ' + e.button);
@@ -656,12 +659,12 @@ function modelReset(newmodel, src) {
       )
       .append($('<dd>').append(tableDOM))
       .appendTo('#tabsnapshots');
-      $('#tabsnapshots :not(a[href^="#"])').attr('target','_blank');
+      $('#tabsnapshots :not(a[href^="#"])').attr('target', '_blank');
   });
-  appendTab('new', {name: "New"}, function() {
-    model.context.push({name:'',  notes:[]});
+  appendTab('new', {name: 'New'}, function() {
+    model.context.push({name: '', notes: []});
     modelReset(model, B.SRC_NEW_CONTEXT);
-    $('#tabtab_' + (model.context.length-1)).click().focus();
+    $('#tabtab_' + (model.context.length - 1)).click().focus();
     return false;
   });
   $('#tabtab_' + reactivate).click();
@@ -674,7 +677,7 @@ function loadFromStorage(syncmodel) {
   $.each(syncmodel.meta, function(prefix, context) {
     var idx = prefix.slice(1);
     jsonmodel.context[idx] = {
-      name : context.name,
+      name: context.name,
       notes: []
     };
   });
@@ -688,14 +691,14 @@ function loadFromStorage(syncmodel) {
     }
     var keys = noteid.split(B.STORESEP);
     if (noteid[0] != 'c' || keys.length != 2) {
-      console.log("Deleting unknown/malformed key -- " + noteid);
+      console.log('Deleting unknown/malformed key -- ' + noteid);
       foreman.store.remove(noteid);
       return;
     }
     keysFromStorage[noteid] = 1;
     var context = jsonmodel.context[keys[0].slice(1)];
     if (!context) {
-      console.log("No context for key -- " + noteid);
+      console.log('No context for key -- ' + noteid);
       return;
     }
     context.notes[keys[1]] = note;
@@ -708,7 +711,7 @@ function changeTrigger(changes, namespace) {
   var vno = '';
   var vnn = '';
   var numChanges = 0;
-  for (key in changes) {
+  for (var key in changes) {
     switch (key) {
     case B.STORE_META:
       delete changes[key];
@@ -749,7 +752,8 @@ function changeTrigger(changes, namespace) {
             redraw = true;
           } else if (part.note.text === change.newValue.text &&
                      part.note.state === change.newValue.state &&
-                     JSON.stringify(part.snap) === JSON.stringify(change.newValue.snap)) {
+                     JSON.stringify(part.snap) ===
+                         JSON.stringify(change.newValue.snap)) {
             //probably mine
           } else {
             allmine = false;
@@ -762,11 +766,11 @@ function changeTrigger(changes, namespace) {
   }
   if (redraw) {
     modelReset(model, B.SRC_REMOTE);
-    document.getElementById('status').innerHTML
-          = 'remote sync at ' + (new Date()).toISOString();
+    document.getElementById('status').innerHTML =
+        'remote sync at ' + (new Date()).toISOString();
   } else if (!allmine) {
-    document.getElementById('status').innerHTML
-          = 'remote change was not "simple" -- reload required';
+    document.getElementById('status').innerHTML =
+        'remote change was not "simple" -- reload required';
   }
 
   console.log('%d changes, key[%d] %s --> %s', numChanges, kn, vno, vnn);
